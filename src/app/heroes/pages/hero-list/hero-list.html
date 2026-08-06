@@ -6,11 +6,13 @@
     Añadir
   </a>
 </mat-toolbar>
-<mat-form-field appearance="outline">
-  <mat-label>Filtrar por nombre</mat-label>
-  <input matInput [value]="searchTerm()" (input)="onSearch($any($event.target).value)" />
-  <mat-icon matSuffix>search</mat-icon>
-</mat-form-field>
+<div class="filter-bar">
+  <mat-form-field appearance="outline">
+    <mat-label>Filtrar por nombre</mat-label>
+    <input matInput [value]="searchTerm()" (input)="onSearch($any($event.target).value)" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
 <div class="grid">
   @for (hero of paginatedHeroes(); track hero.id) {
   <mat-card>

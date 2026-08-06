@@ -29,7 +29,7 @@ export class HeroList {
 
 
   readonly searchTerm = signal('');
-  readonly pageSize = signal(5);
+  readonly pageSize = signal(10);
   readonly currentPage = signal(1);
 
   readonly filteredHeroes = computed(() => {

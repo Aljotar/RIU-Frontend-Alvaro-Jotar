@@ -7,6 +7,6 @@ export const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'heroes' },
     { path: 'heroes', component: HeroList },
     { path: 'heroes/new', component: HeroForm },
-    { path: 'heroes/:id', component: HeroDetail },
-    { path: 'heroes/:id/edit', component: HeroForm }
+    { path: 'heroes/:id/edit', component: HeroForm },
+    { path: 'heroes/:id', component: HeroDetail }
 ];

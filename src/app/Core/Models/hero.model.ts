@@ -8,3 +8,5 @@ export interface Hero {
     image: string,
     antagonist: string
 }
+
+export type HeroFormModel = Omit<Hero, 'id'>;

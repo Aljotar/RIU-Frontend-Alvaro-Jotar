@@ -2,7 +2,7 @@ import { Hero } from "../Models/hero.model";
 
 
 export const SEED_HEROES: Hero[] = [
-{
+  {
     id: 1,
     name: 'Spider-Man',
     power: 'Agilidad sobrehumana, trepar muros y sentido arácnido',
@@ -41,5 +41,37 @@ export const SEED_HEROES: Hero[] = [
     universe: 'Marvel',
     image: 'assets/heroes/Ironman.jpeg',
     antagonist: 'Mandarin',
+  },
+  {
+    id: 6,
+    name: 'Hulk',
+    power: 'Fuerza y resistencia sobrehumanas impulsadas por la ira',
+    universe: 'Marvel',
+    image: 'assets/heroes/Hulk.jpeg',
+    antagonist: 'Abomination',
+  },
+  {
+    id: 7,
+    name: 'Thor',
+    power: 'Fuerza de un dios, control del trueno',
+    universe: 'Marvel',
+    image: 'assets/heroes/Thor.jpeg',
+    antagonist: 'Loki',
+  },
+  {
+    id: 8,
+    name: 'The Flash',
+    power: 'Supervelocidad y viaje en el tiempo',
+    universe: 'DC',
+    image: 'assets/heroes/Flash.jpeg',
+    antagonist: 'Reverse Flash',
+  },
+  {
+    id: 9,
+    name: 'Linterna Verde',
+    power: 'Anillo de poder que materializa lo que imagina',
+    universe: 'DC',
+    image: 'assets/heroes/Linterna-verde.jpeg',
+    antagonist: 'Sinestro',
   },
 ]

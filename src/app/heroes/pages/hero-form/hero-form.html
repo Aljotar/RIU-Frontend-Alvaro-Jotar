@@ -1,1 +1,58 @@
-<p>hero-form works!</p>
+<mat-toolbar class="app-toolbar">
+    <span>{{ isEditModal ? 'Editar héroe' : 'Nuevo héroe' }}</span>
+    <span class="spacer"></span>
+    <a mat-button routerLink="/heroes">Volver</a>
+</mat-toolbar>
+<div class="form-card">
+    <form class="hero-form" (submit)="onSubmit($event)" novalidate>
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput [formField]="heroForm.name" />
+            @if (heroForm.name().touched() && heroForm.name().invalid()) {
+            @for (error of heroForm.name().errors(); track error) {
+            <mat-error>{{ error.message }}</mat-error>
+            }
+            }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Poder</mat-label>
+            <textarea matInput rows="3" [formField]="heroForm.power"></textarea>
+            @if (heroForm.power().touched() && heroForm.power().invalid()) {
+            @for (error of heroForm.power().errors(); track error) {
+            <mat-error>{{ error.message }}</mat-error>
+            }
+            }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Universo</mat-label>
+            <select matNativeControl [formField]="heroForm.universe">
+                <option value="Marvel">Marvel</option>
+                <option value="DC">DC</option>
+            </select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Imagen (ruta o URL)</mat-label>
+            <input matInput [formField]="heroForm.image" placeholder="assets/heroes/...." />
+            @if (heroForm.image().touched() && heroForm.image().invalid()) {
+            @for (error of heroForm.image().errors(); track error) {
+            <mat-error>{{ error.message }}</mat-error>
+            }
+            }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Antagonista</mat-label>
+            <input matInput [formField]="heroForm.antagonist" />
+            @if (heroForm.antagonist().touched() && heroForm.antagonist().invalid()) {
+            @for (error of heroForm.antagonist().errors(); track error) {
+            <mat-error>{{ error.message }}</mat-error>
+            }
+            }
+        </mat-form-field>
+        <div class="actions">
+            <a mat-button routerLink="/heroes">Cancelar</a>
+            <button mat-flat-button color="primary" type="submit" [disabled]="heroForm().invalid()">
+                {{ isEditModal ? 'Guardar cambios' : 'Crear héroe' }}
+            </button>
+        </div>
+    </form>
+</div>
