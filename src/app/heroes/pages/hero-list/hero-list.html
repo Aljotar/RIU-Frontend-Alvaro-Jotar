@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+  <span>Súper héroes</span>
+  <span class="spacer"></span>
+  <a mat-flat-button routerLink="/heroes/new">
+    <mat-icon>add</mat-icon>
+    Añadir
+  </a>
+</mat-toolbar>
+<mat-form-field appearance="outline">
+  <mat-label>Filtrar por nombre</mat-label>
+  <input matInput [value]="searchTerm()" (input)="onSearch($any($event.target).value)" />
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+<div class="grid">
+  @for (hero of paginatedHeroes(); track hero.id) {
+  <mat-card>
+    <img mat-card-image [src]="hero.image" [alt]="hero.name" />
+    <img class="universe-logo" [src]="universeLogo(hero.universe)" [alt]="hero.universe" />
+    <mat-card-title class="hero-name">{{ hero.name }}</mat-card-title>
+    <mat-card-actions>
+      <a mat-icon-button [routerLink]="['/heroes', hero.id]" aria-label="Ver héroe" title="Ver">
+        <mat-icon>visibility</mat-icon>
+      </a>
+
+      <a mat-icon-button [routerLink]="['/heroes', hero.id, 'edit']" aria-label="Editar héroe" title="Editar">
+        <mat-icon>edit</mat-icon>
+      </a>
+      <button mat-icon-button color="warn" type="button" aria-label="Borrar héroe" title="Borrar"
+        (click)="onDelete(hero.id, hero.name)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  } @empty {
+  <p>No hay héroes para mostrar.</p>
+  }
+</div>

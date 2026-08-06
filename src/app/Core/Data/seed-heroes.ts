@@ -23,7 +23,7 @@ export const SEED_HEROES: Hero[] = [
     name: 'Superman',
     power: 'Super fuerza, vuelo, visión de calor e invulnerabilidad',
     universe: 'DC',
-    image: 'assets/heroes/SSuperman.jpeg',
+    image: 'assets/heroes/Superman.jpeg',
     antagonist: 'Lex Luthor',
   },
   {
