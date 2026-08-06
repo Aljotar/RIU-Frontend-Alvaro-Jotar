@@ -1,1 +1,36 @@
-<p>hero-detail works!</p>
+<mat-toolbar class="app-toolbar">
+  <span>Detalle del héroe</span>
+  <span class="spacer"></span>
+  <a mat-button routerLink="/heroes">Volver</a>
+</mat-toolbar>
+@if (hero(); as h) {
+  <div class="detail-card">
+    <img class="hero-image" [src]="h.image" [alt]="h.name" />
+    <div class="detail-body">
+      <img
+        class="universe-logo"
+        [src]="universeLogo(h.universe)"
+        [alt]="h.universe"
+      />
+      <h1 class="hero-name">{{ h.name }}</h1>
+      <p><strong>Poder:</strong> {{ h.power }}</p>
+      <p><strong>Antagonista:</strong> {{ h.antagonist }}</p>
+      <div class="actions">
+        <a
+          mat-flat-button
+          color="primary"
+          [routerLink]="['/heroes', h.id, 'edit']"
+        >
+          <mat-icon>edit</mat-icon>
+          Editar
+        </a>
+        <a mat-button routerLink="/heroes">Volver al listado</a>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="not-found">
+    <p>Héroe no encontrado.</p>
+    <a mat-button routerLink="/heroes">Volver al listado</a>
+  </div>
+}
