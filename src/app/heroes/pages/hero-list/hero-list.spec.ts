@@ -4,12 +4,15 @@ import { HeroList } from './hero-list';
 import { Hero } from '../../../Core/Models/hero.model';
 import { signal } from '@angular/core';
 import { HeroService } from '../../../Core/services/hero.service';
+import { MatDialog } from '@angular/material/dialog';
+import { of } from 'rxjs';
 
 describe('HeroList', () => {
   let component: HeroList;
   let fixture: ComponentFixture<HeroList>;
   let heroesSignal: ReturnType<typeof signal<Hero[]>>;
   let deleteHero: ReturnType<typeof vi.fn>;
+  let dialogOpen: ReturnType<typeof vi.fn>;
 
   const mockHeroes: Hero[] = [
     {
@@ -44,11 +47,11 @@ describe('HeroList', () => {
     deleteHero = vi.fn((id: number) => {
       heroesSignal.update((heroes) => heroes.filter((h) => h.id !== id));
     })
-
+    dialogOpen = vi.fn();
     await TestBed.configureTestingModule({
       imports: [HeroList],
       providers: [
-        provideRouter([]), //
+        provideRouter([]),
         {
           provide: HeroService,
           useValue: {
@@ -56,6 +59,11 @@ describe('HeroList', () => {
             deleteHero: deleteHero,
           },
         },
+        {
+          provide: MatDialog,
+          useValue: { open: dialogOpen },
+        },
+
       ],
     }).compileComponents();
 
@@ -84,15 +92,24 @@ describe('HeroList', () => {
   });
 
 
-  it('should call deleteHero when user confirms', () => {
-    vi.spyOn(window, 'confirm').mockReturnValue(true);
+  it('should call deleteHero when user confirms', async () => {
+    vi.useFakeTimers();
+    dialogOpen.mockReturnValue({
+      afterClosed: () => of(true),
+    });
     component.onDelete(1, 'Spider-Man');
+    await vi.runAllTimersAsync();
+    expect(dialogOpen).toHaveBeenCalled();
     expect(deleteHero).toHaveBeenCalledWith(1);
+    vi.useRealTimers();
   });
 
   it('should not call deleteHero when user cancels', () => {
-    vi.spyOn(window, 'confirm').mockReturnValue(false);
+    dialogOpen.mockReturnValue({
+      afterClosed: () => of(false),
+    });
     component.onDelete(1, 'Spider-Man');
+    expect(dialogOpen).toHaveBeenCalled();
     expect(deleteHero).not.toHaveBeenCalled();
   });
 
