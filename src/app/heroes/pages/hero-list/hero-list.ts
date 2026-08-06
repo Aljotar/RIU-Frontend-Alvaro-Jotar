@@ -34,7 +34,7 @@ export class HeroList {
   private readonly loading = inject(LoadingService);
 
   readonly searchTerm = signal('');
-  readonly pageSize = signal(10);
+  readonly pageSize = signal(4);
   readonly currentPage = signal(1);
 
   readonly filteredHeroes = computed(() => {

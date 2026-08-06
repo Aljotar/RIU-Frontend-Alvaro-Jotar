@@ -37,3 +37,11 @@
   <p>No hay héroes para mostrar.</p>
   }
 </div>
+
+<mat-paginator
+  [length]="filteredHeroes().length"
+  [pageSize]="pageSize()"
+  [pageIndex]="currentPage() - 1"
+  [pageSizeOptions]="[5, 10, 25]"
+  (page)="onPage($event)"
+/>

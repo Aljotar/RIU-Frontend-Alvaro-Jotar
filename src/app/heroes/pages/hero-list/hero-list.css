@@ -6,6 +6,7 @@
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1rem;
   padding: 1rem;
+  padding-bottom: 5rem;
   align-items: stretch;
 }
 mat-form-field {
@@ -81,4 +82,15 @@ mat-toolbar.mat-toolbar {
   width: 30%;
   margin-left: 0.5rem 0 0 0;
   max-width: none;
+}
+
+mat-paginator {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: #fff;
+  color: #202020;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.25);
 }
