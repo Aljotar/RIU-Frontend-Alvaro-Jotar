@@ -7,7 +7,7 @@
     <form class="hero-form" (submit)="onSubmit($event)" novalidate>
         <mat-form-field appearance="outline">
             <mat-label>Nombre</mat-label>
-            <input matInput [formField]="heroForm.name" />
+            <input matInput appUpperCase [formField]="heroForm.name" />
             @if (heroForm.name().touched() && heroForm.name().invalid()) {
             @for (error of heroForm.name().errors(); track error) {
             <mat-error>{{ error.message }}</mat-error>
