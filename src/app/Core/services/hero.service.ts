@@ -1,7 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { Hero } from '../Models/hero.model';
 import { SEED_HEROES } from '../Data/seed-heroes';
-import { readonly } from '@angular/forms/signals';
 
 @Injectable({ 
     providedIn: 'root' 
@@ -27,6 +26,32 @@ export class HeroService {
         )
     }
 
+
+    createHero(heroData: Omit<Hero, 'id'>): Hero {
+        const newHero: Hero = { ...heroData, id: this.generateId()};
+        this.heroesSignal.update((heroes) => [...heroes, newHero]);
+        return newHero;
+    }
+
+    upDateHero(upDateHero: Hero): void {
+        this.heroesSignal.update((heroes) => 
+            heroes.map((hero) =>
+                hero.id === upDateHero.id ? upDateHero : hero,
+            ),
+        );
+    }
+
+    deleteHero(id: number): void {
+        this.heroesSignal.update((heros) =>
+            heros.filter((hero) => hero.id !== id),
+        );
+    }
+
+
+    private generateId(): number {
+        const heroes = this.heroesSignal();
+        return heroes.length ? Math.max(...heroes.map((h) => h.id)) + 1 : 1;
+    }
 
 
 
