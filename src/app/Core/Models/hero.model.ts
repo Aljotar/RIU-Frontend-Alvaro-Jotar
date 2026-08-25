@@ -10,3 +10,11 @@ export interface Hero {
 }
 
 export type HeroFormModel = Omit<Hero, 'id'>;
+
+export const EMPTY_HERO_FORM: HeroFormModel = {
+  name: '',
+  power: '',
+  universe: 'Marvel',
+  image: '',
+  antagonist: '',
+};
