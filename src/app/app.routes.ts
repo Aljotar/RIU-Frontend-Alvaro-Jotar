@@ -22,4 +22,5 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./heroes/pages/hero-detail/hero-detail').then((m) => m.HeroDetail),
   },
+  { path: '**', redirectTo: 'heroes' }
 ];
