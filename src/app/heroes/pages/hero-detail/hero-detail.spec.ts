@@ -56,7 +56,7 @@ describe('HeroDetail', () => {
     });
 
 
-    it('should return undefined when heros does nor exist', () => {
+    it('should return undefined when heros does not exist', () => {
         fixture.componentRef.setInput('id', '99');
         fixture.detectChanges();
 

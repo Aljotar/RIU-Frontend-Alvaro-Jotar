@@ -3,22 +3,22 @@ import { Injectable, signal } from '@angular/core';
 @Injectable({ providedIn: 'root'})
 export class LoadingService {
 
-  private readonly loadingSignal = signal(false);
-  private pendingRequest = 0;
+  private readonly _loadingSignal = signal(false);
+  private _pendingRequest = 0;
 
-  readonly loading = this.loadingSignal.asReadonly();
+  readonly loading = this._loadingSignal.asReadonly();
 
   show(): void {
-    this.pendingRequest++;
-    if(this.pendingRequest === 1) {
-      this.loadingSignal.set(true);
+    this._pendingRequest++;
+    if(this._pendingRequest === 1) {
+      this._loadingSignal.set(true);
     }
     
   }
   hide(): void {
-    this.pendingRequest = Math.max(0, this.pendingRequest - 1);
-    if(this.pendingRequest === 0) {
-      this.loadingSignal.set(false);
+    this._pendingRequest = Math.max(0, this._pendingRequest - 1);
+    if(this._pendingRequest === 0) {
+      this._loadingSignal.set(false);
     }
   }
 }

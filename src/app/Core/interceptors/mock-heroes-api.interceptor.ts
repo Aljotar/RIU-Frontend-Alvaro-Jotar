@@ -3,10 +3,10 @@ import { delay, of } from "rxjs";
 
 
 
-const API_PPREFIX = '/api/heroes';
+const API_PREFIX = '/api/heroes';
 
-export const mosckHeroesApiInterceptor: HttpInterceptorFn = (req,  next) => {
-    if (!req.url.startsWith(API_PPREFIX)) {
+export const mockHeroesApiInterceptor: HttpInterceptorFn = (req, next) => {
+    if (!req.url.startsWith(API_PREFIX)) {
         return next(req);
     }
 

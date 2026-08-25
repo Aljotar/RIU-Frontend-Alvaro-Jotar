@@ -44,9 +44,7 @@ describe('HeroList', () => {
   beforeEach(async () => {
 
     heroesSignal = signal<Hero[]>([...mockHeroes]);
-    deleteHero = vi.fn((id: number) => {
-      heroesSignal.update((heroes) => heroes.filter((h) => h.id !== id));
-    })
+    deleteHero = vi.fn(() => of(undefined));
     dialogOpen = vi.fn();
     await TestBed.configureTestingModule({
       imports: [HeroList],
@@ -76,11 +74,6 @@ describe('HeroList', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create', () => {
-    expect(component.paginatedHeroes().length).toBe(3);
-    expect(component.filteredHeroes().map((h) => h.name)).toContain('Spider-Man');
-  });
-
   it('should show heroes from the service', () => {
     expect(component.paginatedHeroes().length).toBe(3);
     expect(component.paginatedHeroes().map((h) => h.name)).toContain('Spider-Man');
@@ -93,15 +86,12 @@ describe('HeroList', () => {
 
 
   it('should call deleteHero when user confirms', async () => {
-    vi.useFakeTimers();
     dialogOpen.mockReturnValue({
       afterClosed: () => of(true),
     });
     component.onDelete(1, 'Spider-Man');
-    await vi.runAllTimersAsync();
+    await vi.waitFor(() => expect(deleteHero).toHaveBeenCalledWith(1));
     expect(dialogOpen).toHaveBeenCalled();
-    expect(deleteHero).toHaveBeenCalledWith(1);
-    vi.useRealTimers();
   });
 
   it('should not call deleteHero when user cancels', () => {

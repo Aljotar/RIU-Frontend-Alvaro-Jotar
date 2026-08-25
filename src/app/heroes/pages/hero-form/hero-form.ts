@@ -9,7 +9,6 @@ import { Router, RouterLink } from '@angular/router';
 import { HeroService } from '../../../Core/services/hero.service';
 import { EMPTY_HERO_FORM, HeroFormModel } from '../../../Core/Models/hero.model';
 import { UpperCase } from '../../../shared/directives/upper-case';
-import { LoadingService } from '../../../Core/services/loading.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -29,9 +28,8 @@ import { firstValueFrom } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroForm {
-  private readonly router = inject(Router);
-  private readonly heroService = inject(HeroService);
-  private readonly loading = inject(LoadingService);
+  private readonly _router = inject(Router);
+  private readonly _heroService = inject(HeroService);
 
   readonly id = input<string>();
 
@@ -40,7 +38,7 @@ export class HeroForm {
     computation: (heroId): HeroFormModel => {
       if (!heroId) return EMPTY_HERO_FORM;
 
-      const hero = this.heroService.getHeroesById(Number(heroId));
+      const hero = this._heroService.getHeroesById(Number(heroId));
       if (!hero)  return EMPTY_HERO_FORM;
 
       return {
@@ -71,8 +69,8 @@ export class HeroForm {
     effect(() => {
       const heroId = this.id();
       if (!heroId) return;
-      if (!this.heroService.getHeroesById(Number(heroId))) {
-        this.router.navigate(['/heroes'])
+      if (!this._heroService.getHeroesById(Number(heroId))) {
+        this._router.navigate(['/heroes'])
       }
     })
   }
@@ -86,13 +84,13 @@ export class HeroForm {
 
     if (this.isEditModal) {
       await firstValueFrom(
-        this.heroService.upDateHero({ id: Number(this.id()), ...data }),
+        this._heroService.updateHero({ id: Number(this.id()), ...data }),
       );
     } else {
-      await firstValueFrom(this.heroService.createHero(data));
+      await firstValueFrom(this._heroService.createHero(data));
     }
 
-    this.router.navigate(['/heroes']);
+    this._router.navigate(['/heroes']);
   }
 
 

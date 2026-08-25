@@ -11,7 +11,6 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { ConfirmDialogData } from '../../../Core/Models/confirm-dialog.model';
 import { MatDialog } from '@angular/material/dialog';
-import { LoadingService } from '../../../Core/services/loading.service';
 import { NgOptimizedImage } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
 
@@ -33,9 +32,8 @@ import { firstValueFrom } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroList {
-  private readonly heroService = inject(HeroService);
-  private readonly dialog = inject(MatDialog);
-  private readonly loading = inject(LoadingService);
+  private readonly _heroService = inject(HeroService);
+  private readonly _dialog = inject(MatDialog);
 
   readonly searchTerm = signal('');
   readonly pageSize = signal(4);
@@ -43,7 +41,7 @@ export class HeroList {
 
   readonly filteredHeroes = computed(() => {
     const term = this.searchTerm().trim().toLowerCase();
-    const heroes = this.heroService.heroes();
+    const heroes = this._heroService.heroes();
 
     if(!term) return heroes;
 
@@ -78,12 +76,12 @@ export class HeroList {
       title: 'Confirmar borrado',
       message: `¿Seguro que querés borrar a ${name}?`,
     };
-    this.dialog
+    this._dialog
       .open(ConfirmDialog, { data })
       .afterClosed()
       .subscribe(async (confirmed: boolean | undefined) => {
         if (!confirmed) return;
-        await firstValueFrom(this.heroService.deleteHero(id));
+        await firstValueFrom(this._heroService.deleteHero(id));
       });
   }
 
