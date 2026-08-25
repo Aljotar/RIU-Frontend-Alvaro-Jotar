@@ -9,8 +9,10 @@
     <div class="detail-body">
       <img
         class="universe-logo"
-        [src]="universeLogo(h.universe)"
+        [ngSrc]="universeLogo(h.universe)"
         [alt]="h.universe"
+        width="80"
+        height="28"
       />
       <h1 class="hero-name">{{ h.name }}</h1>
       <p><strong>Poder:</strong> {{ h.power }}</p>

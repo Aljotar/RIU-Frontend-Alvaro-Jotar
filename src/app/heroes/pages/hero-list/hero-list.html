@@ -16,8 +16,20 @@
 <div class="grid">
   @for (hero of paginatedHeroes(); track hero.id) {
   <mat-card>
-    <img mat-card-image [src]="hero.image" [alt]="hero.name" />
-    <img class="universe-logo" [src]="universeLogo(hero.universe)" [alt]="hero.universe" />
+    <img 
+    mat-card-image 
+    [ngSrc]="hero.image" 
+    [alt]="hero.name"
+    width="400"
+    height="350"
+    />
+    <img 
+    class="universe-logo" 
+    [ngSrc]="universeLogo(hero.universe)"
+    [alt]="hero.universe" 
+    width="80"
+    height="28"
+    />
     <mat-card-title class="hero-name">{{ hero.name }}</mat-card-title>
     <mat-card-actions>
       <a mat-icon-button [routerLink]="['/heroes', hero.id]" aria-label="Ver héroe" title="Ver">
@@ -43,5 +55,6 @@
   [pageSize]="pageSize()"
   [pageIndex]="currentPage() - 1"
   [pageSizeOptions]="[5, 10, 25]"
+  [showFirstLastButtons]="true"
   (page)="onPage($event)"
 />

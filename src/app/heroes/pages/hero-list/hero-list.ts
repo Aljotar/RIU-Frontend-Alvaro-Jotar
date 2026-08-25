@@ -12,6 +12,7 @@ import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm
 import { ConfirmDialogData } from '../../../Core/Models/confirm-dialog.model';
 import { MatDialog } from '@angular/material/dialog';
 import { LoadingService } from '../../../Core/services/loading.service';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-hero-list',
@@ -23,7 +24,8 @@ import { LoadingService } from '../../../Core/services/loading.service';
   MatFormFieldModule,
   MatInputModule,
   MatCardModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  NgOptimizedImage
 ],
   templateUrl: './hero-list.html',
   styleUrl: './hero-list.css',

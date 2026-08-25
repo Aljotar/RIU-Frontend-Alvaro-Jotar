@@ -6,6 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import { HeroService } from '../../../Core/services/hero.service';
 import { HeroUniverse } from '../../../Core/Models/hero.model';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-hero-detail',
@@ -15,6 +16,7 @@ import { HeroUniverse } from '../../../Core/Models/hero.model';
     MatButtonModule,
     MatIconModule,
     MatCardModule,
+    NgOptimizedImage
   ],
   templateUrl: './hero-detail.html',
   styleUrl: './hero-detail.css',
