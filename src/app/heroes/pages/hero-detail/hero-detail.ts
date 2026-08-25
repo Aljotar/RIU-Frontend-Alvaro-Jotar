@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,6 +18,7 @@ import { HeroUniverse } from '../../../Core/Models/hero.model';
   ],
   templateUrl: './hero-detail.html',
   styleUrl: './hero-detail.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroDetail {
   private readonly heroService = inject(HeroService);

@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, signal } from '@angular/core';
 import { form, FormField, minLength, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,6 +25,7 @@ import { LoadingService } from '../../../Core/services/loading.service';
   ],
   templateUrl: './hero-form.html',
   styleUrl: './hero-form.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroForm implements OnInit {
   private readonly router = inject(Router);

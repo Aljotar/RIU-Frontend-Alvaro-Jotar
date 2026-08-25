@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { HeroService } from '../../../Core/services/hero.service';
 import { RouterLink } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -27,6 +27,7 @@ import { LoadingService } from '../../../Core/services/loading.service';
 ],
   templateUrl: './hero-list.html',
   styleUrl: './hero-list.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroList {
   private readonly heroService = inject(HeroService);
