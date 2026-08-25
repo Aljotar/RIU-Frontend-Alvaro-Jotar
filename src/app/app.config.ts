@@ -2,10 +2,16 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { loadingInterceptor } from './Core/interceptors/loading.interceptor';
+import { mosckHeroesApiInterceptor } from './Core/interceptors/mock-heroes-api.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes, withComponentInputBinding())
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(
+      withInterceptors([loadingInterceptor,mosckHeroesApiInterceptor])
+    )
   ]
 };

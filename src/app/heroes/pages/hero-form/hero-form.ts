@@ -10,6 +10,7 @@ import { HeroService } from '../../../Core/services/hero.service';
 import { EMPTY_HERO_FORM, HeroFormModel } from '../../../Core/Models/hero.model';
 import { UpperCase } from '../../../shared/directives/upper-case';
 import { LoadingService } from '../../../Core/services/loading.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-hero-form',
@@ -79,15 +80,18 @@ export class HeroForm {
   async onSubmit(event: Event): Promise<void> {
     event.preventDefault();
     if (this.heroForm().invalid()) return;
-    this.loading.show();
-    await new Promise((r) => setTimeout(r, 800));
+
+
     const data = this.heroModel();
+
     if (this.isEditModal) {
-      this.heroService.upDateHero({ id: Number(this.id()), ...data });
+      await firstValueFrom(
+        this.heroService.upDateHero({ id: Number(this.id()), ...data }),
+      );
     } else {
-      this.heroService.createHero(data);
+      await firstValueFrom(this.heroService.createHero(data));
     }
-    this.loading.hide();
+
     this.router.navigate(['/heroes']);
   }
 

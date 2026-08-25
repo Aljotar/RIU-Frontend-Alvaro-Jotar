@@ -1,11 +1,14 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Hero } from '../Models/hero.model';
 import { SEED_HEROES } from '../Data/seed-heroes';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({ 
     providedIn: 'root' 
 })
 export class HeroService {
+    private readonly  http = inject(HttpClient)
     private readonly heroesSignal = signal<Hero[]>([...SEED_HEROES]);
 
     readonly heroes = this.heroesSignal.asReadonly();
@@ -27,24 +30,35 @@ export class HeroService {
     }
 
 
-    createHero(heroData: Omit<Hero, 'id'>): Hero {
-        const newHero: Hero = { ...heroData, id: this.generateId()};
-        this.heroesSignal.update((heroes) => [...heroes, newHero]);
-        return newHero;
+    createHero(heroData: Omit<Hero, 'id'>): Observable<Hero> {
+        const newHero: Hero = { ...heroData, id: this.generateId() };
+        return this.http.post<Hero>('/api/heroes', newHero).pipe(
+        tap(() => {
+            this.heroesSignal.update((heroes) => [...heroes, newHero]);
+        }),
+        );
     }
 
-    upDateHero(upDateHero: Hero): void {
-        this.heroesSignal.update((heroes) => 
+    upDateHero(updatedHero: Hero): Observable<void> {
+        return this.http.put<void>(`/api/heroes/${updatedHero.id}`, updatedHero).pipe(
+        tap(() => {
+            this.heroesSignal.update((heroes) =>
             heroes.map((hero) =>
-                hero.id === upDateHero.id ? upDateHero : hero,
+                hero.id === updatedHero.id ? updatedHero : hero,
             ),
+            );
+        }),
         );
     }
 
-    deleteHero(id: number): void {
-        this.heroesSignal.update((heros) =>
-            heros.filter((hero) => hero.id !== id),
+    deleteHero(id: number): Observable<void> {
+    return this.http.delete<void>(`/api/heroes/${id}`).pipe(
+        tap(() => {
+        this.heroesSignal.update((heroes) =>
+            heroes.filter((hero) => hero.id !== id),
         );
+        }),
+    );
     }
 
 

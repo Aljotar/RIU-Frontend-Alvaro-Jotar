@@ -13,6 +13,7 @@ import { ConfirmDialogData } from '../../../Core/Models/confirm-dialog.model';
 import { MatDialog } from '@angular/material/dialog';
 import { LoadingService } from '../../../Core/services/loading.service';
 import { NgOptimizedImage } from '@angular/common';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-hero-list',
@@ -80,12 +81,9 @@ export class HeroList {
     this.dialog
       .open(ConfirmDialog, { data })
       .afterClosed()
-      .subscribe(async(confirmed: boolean | undefined) => {
-        if (!confirmed) return; 
-      this.loading.show();
-      await new Promise((r) => setTimeout(r, 800));
-      this.heroService.deleteHero(id);
-      this.loading.hide();
+      .subscribe(async (confirmed: boolean | undefined) => {
+        if (!confirmed) return;
+        await firstValueFrom(this.heroService.deleteHero(id));
       });
   }
 

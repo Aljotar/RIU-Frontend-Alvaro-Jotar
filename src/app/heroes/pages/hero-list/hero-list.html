@@ -14,7 +14,7 @@
   </mat-form-field>
 </div>
 <div class="grid">
-  @for (hero of paginatedHeroes(); track hero.id) {
+  @for (hero of paginatedHeroes(); track hero.id; let i = $index) {
   <mat-card>
     <img 
     mat-card-image 
@@ -22,6 +22,7 @@
     [alt]="hero.name"
     width="400"
     height="350"
+    priority
     />
     <img 
     class="universe-logo" 
